@@ -1,0 +1,189 @@
+// 1.A function which prints str after n seconds
+
+function printTimeOut() {
+	console.log('hello');
+}
+
+setTimeout(printTimeOut, 2000);
+
+//2. A function which returns sum of all numbers from 1 to n using recursion.
+
+function sumAll(n) {
+	if (!n) return 0; // якщо число не задано, то поверни 0;
+	let sumResult = 0; // початкове значення змінної sumResult = 0;
+	for (i = 0; i <= n; i++){ // використовуємо цикл for для перебору кожної ітерації від 0 до n;
+		sumResult += i; // sumResult = sumResult + i;
+	}
+	return sumResult; 
+}
+console.log(sumAll(2)); // 3
+console.log(sumAll(4)); // 10
+
+// 3.A function which takes str and time in seconds as arguments, then every second
+// it should count down from time to 0 and print current time to console when time equals to 0 it prints str
+
+function bombTimer(str, time) {
+	let i = time;
+	let countDown = setInterval(function () {
+		if (i == 0) clearInterval(countDown); i--;
+		if (time >= 1) {
+			console.log(time); time--;
+		} else {
+			console.log(str);
+		}
+	}, 1000);
+}
+bombTimer('Boooom!', 3)
+
+
+//4. A function which returns factorial of number using recursion
+function factorial(n) {	
+	let multResult = 1; 
+	for (i = 1; i <= n; i++) { 
+		multResult *= i;  
+	}
+	return multResult;
+}
+console.log(factorial(3)); // 6
+console.log(factorial(5)); // 120
+
+//5. Implement function from task №3 (bombTimer) using recursion and setTimeout.
+function bombTimer_2(str, time) {
+	let i = time;
+	let countDown_2 = setTimeout(function () {
+		if (i == 0) clearTimeout(countDown_2); i--;
+		console.log(i);
+		if (time >= 1) {
+			console.log(time); time--;
+		} else {
+			console.log(str);
+		}
+	}, 1000);
+}
+// console.log(bombTimer_2('Booom!', 3)); // не працює
+
+
+//6.A function which takes an array of numbers and maxNumber,
+// the function returns new array with numbers not higher than maxNumber
+function filterNumbers(arr, maxNumber) {
+	 let filterArr = [];
+	 arr.forEach(item => {
+		 if (item <= maxNumber){
+			 filterArr.push(item);
+		 }		 
+	 });
+	return console.log(filterArr);
+}
+filterNumbers([1, 4, 8, 1, 20], 5);
+
+// 7. A function that returns object with min and max numbers from array of numbers.
+
+function minMax(arr) {
+	let ArrSort = [];
+	let minNumber = Math.min(...arr);
+	let maxNumber = Math.max(...arr);
+	arr.forEach(item => {
+		if (item == minNumber || item == maxNumber) {
+			ArrSort.push(item);			
+		}
+	});
+	return console.log(ArrSort);	
+}
+minMax([1, 4, 8, 2, 20]);
+
+//8. A function that returns average of numbers in array.
+
+function minMax(arr) {
+	let average = 0;
+	const sum = arr.reduce((total, next) => total + next, 0);
+	const count = arr.length;
+	average = sum / count;
+	return console.log(+average.toFixed(2));
+}
+minMax([1, 4, 2]) // 2.33
+
+//9. A function which concats all first-nested arrays in one array (use reduce):
+function concatFirstNestedArrays(arr) {
+	let concatArr = arr.reduce((sumArr, currentArr) => {
+		return sumArr.concat(currentArr, []);
+	});	
+	return console.log(concatArr);
+}
+concatFirstNestedArrays([[0, 1], [2, 3], [4, 5]]) // [0, 1, 2, 3, 4, 5]
+
+//11. A function returns array of users that have birthdays in a specific month.
+const usersNew = [
+	{
+		name: 'John',
+		birthday: '1999-2-12'
+	},
+	{
+		name: 'Bill',
+		birthday: '1999-1-19'
+	},
+	{ 
+		name: 'Carol',
+		birthday: '1999-4-11'
+	},
+	{ 
+		name: 'Luce',
+		birthday: '1999-2-22'
+	}
+];
+
+function filterUsersByMonth(usersNew, month) {	
+	
+	usersNew.forEach(obj => {
+		let filterObj = [];		
+		let userBirthday = obj.birthday;		
+		// let dateBirthday = new Date(userBirthday.getMonth());				
+		if (isNaN(month)){
+			return console.log('Введіть число');
+		} else if (userBirthday === month) {
+			return filterObj.push(obj);
+		}
+	})
+}
+console.log(filterUsersByMonth(usersNew, 0));
+
+// 12.A function returns name and age of users separated by comma that are older than 18.
+const users = [
+	{
+		name: 'John',
+		birthday: '1999-6-12'
+	},
+	{
+		name: 'Bill',
+		birthday: '2005-5-19'
+	},
+	{
+		name: 'Carol',
+		birthday: '2003-10-11'
+	},
+	{
+		name: 'Luce',
+		birthday: '2000-11-22'
+	}
+];
+
+function getAdultNames(users) {
+	let res = [];	
+
+	for (let i = 0; i < users.length; i++) {
+		let dateNow = new Date();
+		let userBirthday = users[i].birthday;
+		let userBirthday_1 = new Date(userBirthday);		
+		dateNow.setFullYear(dateNow.getFullYear() - 18);	
+
+		if (userBirthday_1 < dateNow) {
+			res.push(users[i].name + ',' , users[i].birthday);
+		}
+	}
+	return res.join(' ');
+}
+console.log(getAdultNames(users));  // * як перевести  birthday: '2003-10-11' у повну кіл-ть років?
+
+
+
+
+
