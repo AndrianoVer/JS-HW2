@@ -25,7 +25,9 @@ console.log(sumAll(4)); // 10
 function bombTimer(str, time) {
 	let i = time;
 	let countDown = setInterval(function () {
-		if (i == 0) clearInterval(countDown); i--;
+		if (i == 0) {
+			clearInterval(countDown); i--;
+		} 
 		if (time >= 1) {
 			console.log(time); time--;
 		} else {
@@ -66,15 +68,13 @@ function bombTimer_2(str, time) {
 //6.A function which takes an array of numbers and maxNumber,
 // the function returns new array with numbers not higher than maxNumber
 function filterNumbers(arr, maxNumber) {
-	 let filterArr = [];
-	 arr.forEach(item => {
-		 if (item <= maxNumber){
-			 filterArr.push(item);
-		 }		 
-	 });
-	return console.log(filterArr);
+	let arrIncome = arr;
+	let filterArr = arrIncome.filter(function(number) {
+		return number < maxNumber;
+	});	 
+	return filterArr;
 }
-filterNumbers([1, 4, 8, 1, 20], 5);
+console.log(filterNumbers([1, 4, 8, 1, 20], 5));
 
 // 7. A function that returns object with min and max numbers from array of numbers.
 
@@ -87,9 +87,9 @@ function minMax(arr) {
 			ArrSort.push(item);			
 		}
 	});
-	return console.log(ArrSort);	
+	return ArrSort;	
 }
-minMax([1, 4, 8, 2, 20]);
+console.log(minMax([1, 4, 8, 2, 20]));
 
 //8. A function that returns average of numbers in array.
 
@@ -98,18 +98,18 @@ function minMax(arr) {
 	const sum = arr.reduce((total, next) => total + next, 0);
 	const count = arr.length;
 	average = sum / count;
-	return console.log(+average.toFixed(2));
+	return +average.toFixed(2);
 }
-minMax([1, 4, 2]) // 2.33
+console.log(minMax([1, 4, 2])); // 2.33
 
 //9. A function which concats all first-nested arrays in one array (use reduce):
 function concatFirstNestedArrays(arr) {
 	let concatArr = arr.reduce((sumArr, currentArr) => {
 		return sumArr.concat(currentArr, []);
 	});	
-	return console.log(concatArr);
+	return concatArr;
 }
-concatFirstNestedArrays([[0, 1], [2, 3], [4, 5]]) // [0, 1, 2, 3, 4, 5]
+console.log(concatFirstNestedArrays([[0, 1], [2, 3], [4, 5]])); // [0, 1, 2, 3, 4, 5]
 
 //11. A function returns array of users that have birthdays in a specific month.
 const usersNew = [
@@ -131,20 +131,16 @@ const usersNew = [
 	}
 ];
 
-function filterUsersByMonth(usersNew, month) {	
-	
-	usersNew.forEach(obj => {
-		let filterObj = [];		
-		let userBirthday = obj.birthday;		
-		// let dateBirthday = new Date(userBirthday.getMonth());				
-		if (isNaN(month)){
-			return console.log('Введіть число');
-		} else if (userBirthday === month) {
-			return filterObj.push(obj);
-		}
-	})
+function filterUsersByMonth(usersNew, month) {
+
+	let filterObj = usersNew.filter(function (obj){
+		return obj === month;
+	});
+
+	return filterObj;
+
 }
-console.log(filterUsersByMonth(usersNew, 0));
+console.log(filterUsersByMonth(usersNew, 1));
 
 // 12.A function returns name and age of users separated by comma that are older than 18.
 const users = [
@@ -167,23 +163,15 @@ const users = [
 ];
 
 function getAdultNames(users) {
-	let res = [];	
+	let res = [];
 
 	for (let i = 0; i < users.length; i++) {
-		let dateNow = new Date();
-		let userBirthday = users[i].birthday;
-		let userBirthday_1 = new Date(userBirthday);		
-		dateNow.setFullYear(dateNow.getFullYear() - 18);	
-
-		if (userBirthday_1 < dateNow) {
-			res.push(users[i].name + ',' , users[i].birthday);
-		}
+		let dateNow = new Date();			
+		let userBirthday = Math.ceil(((dateNow - new Date(users[i].birthday)) / 31536000000));						
+		if (userBirthday > 18) {			
+			res.push(users[i].name + ',', userBirthday);
+		}	
 	}
 	return res.join(' ');
-}
-console.log(getAdultNames(users));  // * як перевести  birthday: '2003-10-11' у повну кіл-ть років?
-
-
-
-
-
+};
+console.log(getAdultNames(users)); 
