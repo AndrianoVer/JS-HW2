@@ -51,8 +51,7 @@ console.log(factorial(5)); // 120
 
 //5. Implement function from task №3 (bombTimer) using recursion and setTimeout.
 
-function countDown(str, time) {
-	debugger;
+function countDown(str, time) {	
 	for (i = time; i >= 1; i--) {
 		if (i > 0) {
 			(function () {
@@ -62,7 +61,7 @@ function countDown(str, time) {
 				}, count * 1000);
 			})();
 
-		} else if (i <= 0) {
+		} else if (i >= time) {
 			console.log(str);
 		}
 	}
