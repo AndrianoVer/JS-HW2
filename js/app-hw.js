@@ -50,20 +50,24 @@ console.log(factorial(3)); // 6
 console.log(factorial(5)); // 120
 
 //5. Implement function from task №3 (bombTimer) using recursion and setTimeout.
-function bombTimer_2(str, time) {
-	let i = time;
-	let countDown_2 = setTimeout(function () {
-		if (i == 0) clearTimeout(countDown_2); i--;
-		console.log(i);
-		if (time >= 1) {
-			console.log(time); time--;
-		} else {
+
+function countDown(str, time) {
+	debugger;
+	for (i = time; i >= 1; i--) {
+		if (i > 0) {
+			(function () {
+				let count = i;
+				setTimeout(function timer() {
+					console.log(count);
+				}, count * 1000);
+			})();
+
+		} else if (i <= 0) {
 			console.log(str);
 		}
-	}, 1000);
+	}
 }
-// console.log(bombTimer_2('Booom!', 3)); // не працює
-
+countDown('Booom!', 3);
 
 //6.A function which takes an array of numbers and maxNumber,
 // the function returns new array with numbers not higher than maxNumber
@@ -132,15 +136,11 @@ const usersNew = [
 ];
 
 function filterUsersByMonth(usersNew, month) {
-
-	let filterObj = usersNew.filter(function (obj){
-		return obj === month;
-	});
-
+	let filterObj = usersNew.filter(usersItem => new Date(usersItem.birthday).getMonth() === month);
 	return filterObj;
-
 }
-console.log(filterUsersByMonth(usersNew, 1));
+
+console.log(filterUsersByMonth(usersNew, 0));
 
 // 12.A function returns name and age of users separated by comma that are older than 18.
 const users = [
