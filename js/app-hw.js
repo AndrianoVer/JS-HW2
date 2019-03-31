@@ -51,22 +51,22 @@ console.log(factorial(5)); // 120
 
 //5. Implement function from task №3 (bombTimer) using recursion and setTimeout.
 
-function countDown(str, time) {	
-	for (i = time; i >= 1; i--) {
-		if (i > 0) {
-			(function () {
-				let count = i;
-				setTimeout(function timer() {
-					console.log(count);
-				}, count * 1000);
-			})();
-
-		} else if (i >= time) {
+function bombTimer(str, time, timeInterval) {
+	if (time !== 0) {
+		const timer = setTimeout(() => {
+			console.log(time);
+			clearTimeout(timer);
+			bombTimer(str, time - 1, timeInterval);
+		}, timeInterval);
+	} else if (time === 0) {
+		const stringDelay = setTimeout(() => {
+			clearTimeout(stringDelay);
 			console.log(str);
-		}
+		}, timeInterval);
 	}
+	return str;
 }
-countDown('Booom!', 3);
+bombTimer('Booom!', 5, 1000);
 
 //6.A function which takes an array of numbers and maxNumber,
 // the function returns new array with numbers not higher than maxNumber
